@@ -27,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  
+
   declarations: [
     AppComponent,
     TambahAlamatComponent,
@@ -52,10 +52,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  
+
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[
+  entryComponents: [
     TambahAlamatComponent,
     DetailAlamatComponent,
     DialogKonfirmasiComponent

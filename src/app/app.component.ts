@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 // import modul dialog
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // import halaman dialog yang sudah dibuat pada tahap sebelumnya
-import{ TambahAlamatComponent } from './tambah-alamat/tambah-alamat.component';
+import { TambahAlamatComponent } from './tambah-alamat/tambah-alamat.component';
 // Dialog Detail Alamat
 import { DetailAlamatComponent } from './detail-alamat/detail-alamat.component';
 // Membuat Dialog Konfirmasi Hapus Data
-import { DialogKonfirmasiComponent} from './dialog-konfirmasi/dialog-konfirmasi.component';
+import { DialogKonfirmasiComponent } from './dialog-konfirmasi/dialog-konfirmasi.component';
 // untuk memangil api sercvice
 import { ApiService } from './api.service'; // kode tambahan
 
@@ -18,69 +18,62 @@ import { ApiService } from './api.service'; // kode tambahan
 export class AppComponent {
   title = 'buku-alamat';
   constructor(
-    public dialog:MatDialog, // Menabahkan variable dialog
-    public api:ApiService
-    
-      )
-    {
-      this.getData(); // kode tambahan
-    }
+    public dialog: MatDialog, // Menabahkan variable dialog
+    public api: ApiService
 
-    // Mengambil Data Pada Server 
-   
-    dataAlamat:any=[];
-  getData()
-  {
-    this.api.baca().subscribe(res=>{
-      this.dataAlamat=res;
+  ) {
+    this.getData(); // kode tambahan
+  }
+
+  // Mengambil Data Pada Server 
+
+  dataAlamat: any = [];
+  getData() {
+    this.api.baca().subscribe(res => {
+      this.dataAlamat = res;
     })
   }
   // Fungsi untuk menampilkan dialog penambahan alamat baru 
-  buatAlamat()
-  {
-    const dialogRef = this.dialog.open(TambahAlamatComponent,{
+  buatAlamat() {
+    const dialogRef = this.dialog.open(TambahAlamatComponent, {
       width: '450px',
-      data:null
+      data: null
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getData();// data diambil lagi dari server saat dialog tertutup
     });
-  } 
+  }
   // Membuka dialog detail alamat
-  detailAlamat(item)
-  {
+  detailAlamat(item) {
     const dialogRef = this.dialog.open(DetailAlamatComponent, {
       width: '450px',
-      data:item
+      data: item
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('the Dialog Was Closed');
     });
   }
-  konfirmasiHapus(id)
-  {
-    const dialogRef = this.dialog.open(DialogKonfirmasiComponent,{
+  konfirmasiHapus(id) {
+    const dialogRef = this.dialog.open(DialogKonfirmasiComponent, {
       width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result == true)
-      {
+      if (result == true) {
         console.log('Menghapus Data');
-        this.api.hapus(id).subscribe(res=>{
+        this.api.hapus(id).subscribe(res => {
           this.getData();
         })
       }
     });
   }
-  editAlamat(data)
-  {
+  editAlamat(data) {
     const dialogRef = this.dialog.open(TambahAlamatComponent, {
       width: '450px',
-      data:data
+      data: data
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getData();    
+      this.getData();
     });
   }
-  
+
 }
